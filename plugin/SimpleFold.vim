@@ -328,16 +328,16 @@ let g:simplefold_marker_start = '\v\{\{\{\{'
 let g:simplefold_marker_end = '\v\}\}\}\}'
 " Ruby support
 let g:ruby_simplefold_expr = 
-	    \'\v(^\s*(def|class|module|attr_reader|attr_accessor|alias_method|' .
-	    \    'attr|module_function' . ')\s' . 
-	    \ '|\v^\s*(public|private|protected)>' .
-	    \ '|^\s*\w+attr_(reader|accessor)\s|^\s*[#%"0-9]{0,4}\s*\{\{\{[^{])' .
+	    \'\v(^\s*(def|class|module)\s' . 
+	    \'|^\s*(attr_reader|attr_accessor|alias_method|attr|module_function)(\s|\s*\()' . 
+	    \ '|^\s*(public|private|protected)>' .
+	    \ '|^\s*\w+attr_(reader|accessor)(\s|\s*\()|^\s*[#%"0-9]{0,4}\s*\{\{\{[^{])' .
 	    \ '|^\s*[A-Z]\w+\s*\=[^=]|^__END__$'
 let g:ruby_simplefold_nestable_start_expr = 
 	    \ '\v^\s*(def>|if>|unless>|while>.*(<do>)?|' . 
 		\         'until>.*(<do>)?|case>|for>|begin>)' .
-		\ '|^[^#]*.*<do>\s*(\|.*\|)?'
-let g:ruby_simplefold_nestable_end_expr = '\v^\s*end'
+		\ '|^[^#]*.*<do>\s*(\|.*\|)?|\=\s*\<\<-?EOF$'
+let g:ruby_simplefold_nestable_end_expr = '\v^\s*(end|EOF)'
     
 let g:ruby_simplefold_prefix = '\v^\s*(#([^{]+|\{[^{]|\{\{[^{])*)?$'
 
@@ -403,5 +403,11 @@ let g:omlet_simplefold_prefix = g:ocaml_simplefold_prefix
 
 let g:javascript_simplefold_prefix = '\v^((^\s{0,4}\S*\s*:.*\S+.*([,\{]$|\_\s*\}))|(^\w.*[\{=])|(^\s*\}))@!.*$'
 let g:javascript_simplefold_expr =     '\v(^\s{0,4}\S*\s*:.*\S+.*([,\{]$|\_\s*\}))|(^\w.*[\{=])'
+
+" Shell support
+let g:sh_simplefold_expr = '\v^\s*(function|\w+\(\))'
+let g:sh_simplefold_prefix = '\v^\s*(#.*)?$'
+let g:sh_simplefold_nestable_start_expr = '\v^\s*(if>|for>|while>|case>)'
+let g:sh_simplefold_nestable_end_expr = '\v^\s*(fi>|done>|esac>)'
 
 let &cpo = s:save_cpo
